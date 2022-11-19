@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { PureComponent } from "react";
+import Home from "./pages/Home";
+import Profile from "./pages/Profile";
+import "./style.css";
+import { connect } from "react-redux";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export class App extends PureComponent {
+  render() {
+    const { counter } = this.props;
+
+    return (
+      <div>
+        <h2> App Counter : {counter}</h2>
+        <div className="pages">
+          <Home />
+          <Profile />
+        </div>
+      </div>
+    );
+  }
 }
+const mapStateToProps = (state) => ({
+  counter: state.counter.counter,
+});
+//默认有做分包，所以文件路径要再写一次,第一个是counter模块
+//模块中的counter
 
-export default App;
+export default connect(mapStateToProps)(App);
